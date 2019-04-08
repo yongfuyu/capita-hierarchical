@@ -1,3 +1,4 @@
+non_hierarchical_func<-function(){
 model_string<-"
 model{
 for(i in 1:N){
@@ -34,14 +35,14 @@ posterior_samples<-coda.samples(model_jags,
                                 n.iter=10000)
 
 post1.summary<-summary(posterior_samples)
-plot(posterior_samples, 
-     ask=TRUE)
+#plot(posterior_samples, 
+#     ask=TRUE)
 coefs<-post1.summary[['quantiles']][,c('2.5%','50%','97.5%')] 
 st.slp.rows<-grep('beta[2,', row.names(coefs), fixed=T)
 st.labs<-as.character(unique(d1$st))
 post.all<-do.call(rbind,posterior_samples)
-plot(post.all[,'beta[2,3]'], type='l') 
-hist(post.all[,'beta[2,3]']) 
+#plot(post.all[,'beta[2,3]'], type='l') 
+#hist(post.all[,'beta[2,3]']) 
 prob.effect.st.u0<-apply(post.all[,st.slp.rows],2,function(x) mean(x<0))
 prob.effect.st.u0
 log.rr.st<-t(apply(post.all[,st.slp.rows],2,quantile, probs=c(0.025,0.5,0.975)))
@@ -67,13 +68,7 @@ tabletext<-cbind(
   c("Control", "(N=42256)",  d1$n_s11_pp[d1$vax==0]),
   c("", "VE", paste0(st.VE[,'50%'],'%') ))
 
-rmeta::forestplot(tabletext, 
-                  mean=summary_data$mean,lower=summary_data$lower,
-                  upper=summary_data$upper,
-                  new_page = F,
-                  clip=c(-50,100),
-                  #is.summary=c(rep(F, 16), T),
-                  is.summary=F,
-                  #clip=c(-100,500), 
-                  xlog=F, 
-                  boxsize=0.5)
+res.list<-list('tabletext'=tabletext, 'summary_data'=summary_data,'st.VE'=st.VE)
+return(res.list)
+
+}

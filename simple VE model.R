@@ -1,3 +1,4 @@
+simp.mod.func<-function(){
 model_string<-"
 model{
 for(i in 1:N){
@@ -19,7 +20,6 @@ sd1[j]~dunif(0,40)
 ##############################################################
 model_jags<-jags.model(textConnection(model_string),n.chains=2,
                        data=list('N' = nrow(d1),
-                                 'st.index'=d1$st.index,
                                  'N_IPD'=d1$n_s11_pp,
                                  'N_POP'=d1$pop,
                                  'vax'=d1$vax
@@ -35,4 +35,6 @@ posterior_samples<-coda.samples(model_jags,
 
 post1.summary<-summary(posterior_samples)
 log.rr<-post1.summary[[2]]['mu[2]',c('2.5%', '50%', '97.5%')]
-ve<- round(100*(1-exp(log.rr)), 2) 
+ve.simple<- round(100*(1-exp(log.rr)), 2) 
+return(ve.simple)
+}
