@@ -38,6 +38,7 @@ rmeta::forestplot(tabletext,
                   #is.summary=c(rep(F, 16), T),
                   is.summary=F,
                   #clip=c(-100,500), 
+                  align='l',
                   xlog=F, 
                   boxsize=0.5)
 #####################################################################################

@@ -76,7 +76,10 @@ tabletext<-cbind(
   c("", "Serotype", st.labs, NA, "All"),
   c("Vaccine", "(N=42240)", d1$n_s11_pp[d1$vax==1], NA, sum(d1$n_s11_pp[d1$vax==1])),
   c("Control", "(N=42256)",  d1$n_s11_pp[d1$vax==0], NA, sum(d1$n_s11_pp[d1$vax==0])),
-  c("", "VE", paste0(st.VE[,'50%'],'%'), NA, paste0(overall.VE['50%'],'%') ))
+  c("", "VE", paste0(st.VE[,'50%'],'% (', st.VE[,'97.5%'],'%, ',st.VE[,'2.5%'] ,'%' ,')'), 
+    NA, paste0(overall.VE['50%'],'% (', overall.VE['97.5%'],'%, ', overall.VE['2.5%'],'%',')' ) )
+  
+  )
 
 res.list<-list('tabletext'=tabletext, 'summary_data'=summary_data,'overall.VE'=overall.VE,'st.VE'=st.VE)
 return(res.list)
