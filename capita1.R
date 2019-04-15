@@ -30,14 +30,13 @@ ve.simple
 source('./non-hierarchical model.R')
 nonhier1<-non_hierarchical_func()
 nonhier.st.eff<-nonhier1$st.VE
-rmeta::forestplot(tabletext, 
+rmeta::forestplot(nonhier1$tabletext, 
                   mean=nonhier1$summary_data$mean,lower=nonhier1$summary_data$lower,
                   upper=nonhier1$summary_data$upper,
                   new_page = T,
                   clip=c(-50,100),
                   #is.summary=c(rep(F, 16), T),
                   is.summary=F,
-                  #clip=c(-100,500), 
                   align='l',
                   xlog=F, 
                   boxsize=0.5)
@@ -47,7 +46,7 @@ rmeta::forestplot(tabletext,
 source('./hierarchical model.R')
 hier1<-hierarchical.mod.func()
 hier.st.eff<-hier1$st.VE
-rmeta::forestplot(tabletext, 
+rmeta::forestplot(hier1$tabletext, 
                          mean=hier1$summary_data$mean,lower=hier1$summary_data$lower,
                          upper=hier1$summary_data$upper,
                          new_page = F,
@@ -55,6 +54,7 @@ rmeta::forestplot(tabletext,
                          is.summary=F,
                          clip=c(-50,100), 
                          xlog=F, 
+                        align='l',
                          boxsize=0.5)
 
 par(mfrow=c(1,1))
