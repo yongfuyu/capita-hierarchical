@@ -30,7 +30,7 @@ ve.simple
 source('./non-hierarchical model.R')
 nonhier1<-non_hierarchical_func()
 nonhier.st.eff<-nonhier1$st.VE
-tiff('non_hierarchical.tif', width=14, height=7, unit='in', res=200)
+pdf('non_hierarchical.pdf', width=14, height=7)
 rmeta::forestplot(nonhier1$tabletext, 
                   mean=nonhier1$summary_data$mean,
                   lower=signif(nonhier1$summary_data$lower,digits=2),
@@ -49,7 +49,7 @@ dev.off()
 source('./hierarchical model.R')
 hier1<-hierarchical.mod.func()
 hier.st.eff<-hier1$st.VE
-tiff('hierarchical.tif', width=8, height=7, unit='in', res=200)
+pdf('hierarchical.pdf', width=8, height=7)
 
 rmeta::forestplot(hier1$tabletext, 
                          mean=hier1$summary_data$mean,lower=hier1$summary_data$lower,
