@@ -30,9 +30,11 @@ ve.simple
 source('./non-hierarchical model.R')
 nonhier1<-non_hierarchical_func()
 nonhier.st.eff<-nonhier1$st.VE
+tiff('non_hierarchical.tif', width=14, height=7, unit='in', res=200)
 rmeta::forestplot(nonhier1$tabletext, 
-                  mean=nonhier1$summary_data$mean,lower=nonhier1$summary_data$lower,
-                  upper=nonhier1$summary_data$upper,
+                  mean=nonhier1$summary_data$mean,
+                  lower=signif(nonhier1$summary_data$lower,digits=2),
+                  upper=signif(nonhier1$summary_data$upper, digits=2),
                   new_page = T,
                   clip=c(-50,100),
                   #is.summary=c(rep(F, 16), T),
@@ -40,12 +42,15 @@ rmeta::forestplot(nonhier1$tabletext,
                   align='l',
                   xlog=F, 
                   boxsize=0.5)
+dev.off()
 #####################################################################################
 #Hierarchical Model
 #####################################################################################
 source('./hierarchical model.R')
 hier1<-hierarchical.mod.func()
 hier.st.eff<-hier1$st.VE
+tiff('hierarchical.tif', width=8, height=7, unit='in', res=200)
+
 rmeta::forestplot(hier1$tabletext, 
                          mean=hier1$summary_data$mean,lower=hier1$summary_data$lower,
                          upper=hier1$summary_data$upper,
@@ -56,7 +61,7 @@ rmeta::forestplot(hier1$tabletext,
                          xlog=F, 
                         align='l',
                          boxsize=0.5)
-
+dev.off()
 par(mfrow=c(1,1))
 plot(hier.st.eff[,2], nonhier.st.eff[,2], ylim=c(-100,105), 
      xlim=c(-100,105), bty='l', ylab='Non-hierarchical', xlab='Hierarchical')
