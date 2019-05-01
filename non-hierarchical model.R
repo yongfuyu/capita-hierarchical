@@ -18,7 +18,11 @@ beta[j,k]~dnorm(0, 1e-4)
 ##############################################################
 #Model Fitting
 ##############################################################
+jags.inits1 <- function(){
+  list(".RNG.seed"=c(1), ".RNG.name"='base::Wichmann-Hill')
+}
 model_jags<-jags.model(textConnection(model_string),n.chains=2,
+                       inits = jags.inits1,
                        data=list('N' = nrow(d1),
                                  'st.index'=d1$st.index,
                                  'N_IPD'=d1$n_s11_pp,
@@ -32,7 +36,7 @@ update(model_jags,
 posterior_samples<-coda.samples(model_jags, 
                                 variable.names=c("beta"),
                                 thin=1,
-                                n.iter=10000)
+                                n.iter=50000)
 
 post1.summary<-summary(posterior_samples)
 #plot(posterior_samples, 
