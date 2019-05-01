@@ -3,7 +3,6 @@
 #Vaccine-type CAP ITT: 37.7(14.3, 55.1)
 #Vaccine-type Non-bacteremic CAP PP: 45.0(14.2, 65.3) Table S11: n_s11_pp
 #Vaccine-type Non-bacteremic CAP ITT: 41.1(12.7, 60.7)
-
 library(rjags)
 library(rmeta)
 
@@ -49,8 +48,8 @@ dev.off()
 source('./hierarchical model.R')
 hier1<-hierarchical.mod.func()
 hier.st.eff<-hier1$st.VE
-pdf('hierarchical.pdf', width=8, height=7)
 
+pdf('hierarchical.pdf', width=8, height=7)
 rmeta::forestplot(hier1$tabletext, 
                          mean=hier1$summary_data$mean,lower=hier1$summary_data$lower,
                          upper=hier1$summary_data$upper,
@@ -63,10 +62,10 @@ rmeta::forestplot(hier1$tabletext,
                          boxsize=0.5)
 dev.off()
 par(mfrow=c(1,1))
-plot(hier.st.eff[,2], nonhier.st.eff[,2], ylim=c(-100,105), 
-     xlim=c(-100,105), bty='l', ylab='Non-hierarchical', xlab='Hierarchical')
+plot( nonhier.st.eff[,2],hier.st.eff[,2], ylim=c(-100,105), 
+     xlim=c(-100,105), bty='l', ylab='Hierarchical', xlab='non-hierarchical')
 #arrows(x0=hier.st.eff[,2], x1=hier.st.eff[,2], y0=nonhier.st.eff[,1],y1=nonhier.st.eff[,3], length=0 )
 #arrows(x0=hier.st.eff[,1], x1=hier.st.eff[,3], y0=nonhier.st.eff[,2],y1=nonhier.st.eff[,2], length=0 )
-text(hier.st.eff[,2], nonhier.st.eff[,2], unique(d1$st), adj=c(1,1), cex=0.5)
+text( nonhier.st.eff[,2],hier.st.eff[,2], unique(d1$st), adj=c(1,1), cex=0.5)
 abline(h=0,v=0, col='gray', lty=2)
-abline(h=60, v=50)
+#abline(h=60, v=50)

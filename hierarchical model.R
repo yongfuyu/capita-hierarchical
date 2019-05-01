@@ -21,7 +21,11 @@ beta[j,k]~dnorm(mu[j], tau[j])
 ##############################################################
 #Model Fitting
 ##############################################################
+jags.inits1 <- function(){
+  list(".RNG.seed"=c(1), ".RNG.name"='base::Wichmann-Hill')
+}
 model_jags<-jags.model(textConnection(model_string),n.chains=2,
+                       inits = jags.inits1,
                        data=list('N' = nrow(d1),
                                  'st.index'=d1$st.index,
                                  'N_IPD'=d1$n_s11_pp,
@@ -37,11 +41,10 @@ posterior_samples<-coda.samples(model_jags,
                                                  "sd1",
                                                  "beta"),
                                 thin=1,
-                                n.iter=10000)
+                                n.iter=50000)
 
 post1.summary<-summary(posterior_samples)
-#plot(posterior_samples, 
-#     ask=TRUE)
+#plot(posterior_samples,      ask=TRUE)
 coefs<-post1.summary[['quantiles']][,c('2.5%','50%','97.5%')] 
 st.slp.rows<-grep('beta[2,', row.names(coefs), fixed=T)
 st.labs<-as.character(unique(d1$st))
