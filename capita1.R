@@ -67,4 +67,6 @@ plot(hier.st.eff[,2], nonhier.st.eff[,2], ylim=c(-100,105),
      xlim=c(-100,105), bty='l', ylab='Non-hierarchical', xlab='Hierarchical')
 #arrows(x0=hier.st.eff[,2], x1=hier.st.eff[,2], y0=nonhier.st.eff[,1],y1=nonhier.st.eff[,3], length=0 )
 #arrows(x0=hier.st.eff[,1], x1=hier.st.eff[,3], y0=nonhier.st.eff[,2],y1=nonhier.st.eff[,2], length=0 )
+text(hier.st.eff[,2], nonhier.st.eff[,2], unique(d1$st), adj=c(1,1), cex=0.5)
 abline(h=0,v=0, col='gray', lty=2)
+abline(h=60, v=50)
