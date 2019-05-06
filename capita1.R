@@ -8,6 +8,7 @@ library(rmeta)
 
 d1<-read.csv('./capita.csv')
 d1$st.index<-rep(1:13, each=2)
+st.n<- d1$n_s11_pp[d1$vax==0] +d1$n_s11_pp[d1$vax==1]
 mod1<-glm(n_s11_pp~ st +vax+ offset(log(pop)), data=d1, family='poisson')
 vax.coef<-coef(summary(mod1))['vax','Estimate']
 vax.coef.se<-coef(summary(mod1))['vax','Std. Error']
@@ -61,6 +62,31 @@ rmeta::forestplot(hier1$tabletext,
                         align='l',
                          boxsize=0.5)
 dev.off()
+
+
+
+##############################
+#HIERARCHICAL MIXTURE MODEL
+##############################
+source('./hierarchical mixture model.R')
+hier.mix1<-hierarchical.mix.mod.func()
+hier.mix.st.eff<-hier.mix1$st.VE
+
+pdf('hierarchical mixture.pdf', width=8, height=7)
+rmeta::forestplot(hier1$tabletext, 
+                  mean=hier.mix1$summary_data$mean,lower=hier.mix1$summary_data$lower,
+                  upper=hier.mix1$summary_data$upper,
+                  new_page = F,
+                  #is.summary=c(rep(F, 16), T),
+                  is.summary=F,
+                  clip=c(-50,100), 
+                  xlog=F, 
+                  align='l',
+                  boxsize=0.5)
+dev.off()
+
+###############################
+##COMPARE HIERARCHICAL VS NON-HIERARCHICAL
 par(mfrow=c(1,1))
 plot( nonhier.st.eff[,2],hier.st.eff[,2], ylim=c(-100,105), 
      xlim=c(-100,105), bty='l', ylab='Hierarchical', xlab='non-hierarchical')
@@ -69,3 +95,13 @@ plot( nonhier.st.eff[,2],hier.st.eff[,2], ylim=c(-100,105),
 text( nonhier.st.eff[,2],hier.st.eff[,2], unique(d1$st), adj=c(1,1), cex=0.5)
 abline(h=0,v=0, col='gray', lty=2)
 #abline(h=60, v=50)
+
+plot.nonhier.st.eff <- nonhier.st.eff[,2]
+plot.nonhier.st.eff[plot.nonhier.st.eff< -10000]<-NA
+plot( plot.nonhier.st.eff,rep(2,13), ylim=c(1,2.1),yaxt='n',ylab='',xlab='Efficacy', xlim=c(-150,100),col='white', bty='l')
+symbols(plot.nonhier.st.eff,rep(2,13),st.n, cex=0.2, inches=0.1, add=T)
+points(hier.st.eff[,2],rep(1,13))
+arrows(x0=plot.nonhier.st.eff , x1=hier.st.eff[,2], y0=2, y1=1, length=0, lty=2, col='gray')
+abline(v=0) 
+
+
