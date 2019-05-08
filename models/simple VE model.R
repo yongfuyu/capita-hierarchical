@@ -38,9 +38,13 @@ posterior_samples<-coda.samples(model_jags,
                                 variable.names=c("mu"),
                                 thin=1,
                                 n.iter=50000)
+ci<-p.interval(posterior_samples[[1]],
+                   HPD=TRUE,
+                   MM=TRUE) 
+#post1.summary<-summary(posterior_samples)
+#log.rr<-post1.summary[[2]][c('2.5%', '50%', '97.5%')]
+post_means<-colMeans(posterior_samples[[1]])
 
-post1.summary<-summary(posterior_samples)
-log.rr<-post1.summary[[2]][c('2.5%', '50%', '97.5%')]
-ve.simple<- round(100*(1-exp(log.rr)), 2) 
+ve.simple<- round(100*(1-exp(c(post_means, ci))), 2) 
 return(ve.simple)
 }

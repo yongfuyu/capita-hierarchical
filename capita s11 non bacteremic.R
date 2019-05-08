@@ -5,6 +5,7 @@
 #Vaccine-type Non-bacteremic CAP ITT: 41.1(12.7, 60.7)
 library(rjags)
 library(rmeta)
+library(LaplacesDemon)
 
 #Name of the outcome variable
 ########################
@@ -14,6 +15,20 @@ outcome.var<- 'n_s11_pp'
 d1<-read.csv('./capita.csv')
 d1$st.index<-rep(1:13, each=2)
 st.n<- d1[,outcome.var][d1$vax==0] +d1[,outcome.var][d1$vax==1]
+
+#######################################################
+#Preparing Data
+#######################################################
+m<-c(42256, 42240)
+
+vax<-c(0, 1)
+
+y<-matrix(0, nrow=2, ncol=14)
+y[1, 1:13]<-d1[d1$vax==0,outcome.var]
+y[2, 1:13]<-d1[d1$vax==1,outcome.var]
+
+y[1,14]<-m[1] - sum(y[1, 1:13])
+y[2,14]<-m[2] - sum(y[2, 1:13])
 
 #####################################################################################
 # Model with same VE for all serotypes
