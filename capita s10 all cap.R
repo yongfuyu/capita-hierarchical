@@ -86,23 +86,23 @@ dev.off()
 ##COMPARE HIERARCHICAL VS NON-HIERARCHICAL
 tiff('./results s10/hierarchical vs non hierarchical xy.tif', width=8, height=8,res=200,units = 'in')
 par(mfrow=c(1,1))
-plot( nonhier.st.eff[,2],hier.st.eff[,2], ylim=c(-100,105), 
+plot( nonhier.st.eff[,1],hier.st.eff[,1], ylim=c(-100,105), 
      xlim=c(-100,105), bty='l', ylab='Hierarchical', xlab='non-hierarchical')
 #arrows(x0=hier.st.eff[,2], x1=hier.st.eff[,2], y0=nonhier.st.eff[,1],y1=nonhier.st.eff[,3], length=0 )
 #arrows(x0=hier.st.eff[,1], x1=hier.st.eff[,3], y0=nonhier.st.eff[,2],y1=nonhier.st.eff[,2], length=0 )
-text( nonhier.st.eff[,2],hier.st.eff[,2], unique(d1$st), adj=c(1,1), cex=0.5)
+text( nonhier.st.eff[,1],hier.st.eff[,1], unique(d1$st), adj=c(1,1), cex=0.5)
 abline(h=0,v=0, col='gray', lty=2)
 #abline(h=60, v=50)
 dev.off()
 
 tiff('./results s10/hierarchical vs non hierarchical shrinkage.tif', width=8, height=6,res=200,units = 'in')
-plot.nonhier.st.eff <- nonhier.st.eff[,2]
+plot.nonhier.st.eff <- nonhier.st.eff[,1]
 plot.nonhier.st.eff[plot.nonhier.st.eff< -10000]<-NA
 plot( plot.nonhier.st.eff,rep(2,13), ylim=c(1,2.1),yaxt='n',ylab='',xlab='Efficacy', xlim=c(-200,100),col='white', bty='n')
 symbols(plot.nonhier.st.eff,rep(2,13),sqrt(st.n/pi), cex=0.2, inches=0.1, add=T)
 #points(hier.st.eff[,2],rep(1,13))
-symbols(hier.st.eff[,2],rep(1,13),sqrt(st.n/pi), cex=0.2, inches=0.1, add=T)
-arrows(x0=plot.nonhier.st.eff , x1=hier.st.eff[,2], y0=2, y1=1, length=0, lty=2, col='gray')
+symbols(hier.st.eff[,1],rep(1,13),sqrt(st.n/pi), cex=0.2, inches=0.1, add=T)
+arrows(x0=plot.nonhier.st.eff , x1=hier.st.eff[,1], y0=2, y1=1, length=0, lty=2, col='gray')
 text(-145,2, 'Non-hierarchical', pos=2)
 text(-145,1, 'Hierarchical', pos=2)
 abline(v=0) 

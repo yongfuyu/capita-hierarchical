@@ -94,7 +94,8 @@ summary_data <-
     class = "data.frame"))
 
 if (outcome.var=='n_s11_pp'){
-  st.VE[8,]<-NA
+  ci['sero_vax_effect[8]',]<-NA
+  post_means['sero_vax_effect[8]']<-NA
 }
 tabletext<-cbind(
   c("", "Serotype", st.labs, NA, "All"),
