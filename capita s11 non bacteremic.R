@@ -5,7 +5,7 @@
 #Vaccine-type Non-bacteremic CAP ITT: 41.1(12.7, 60.7)
 library(rjags)
 library(rmeta)
-library(LaplacesDemon)
+library(HDInterval)
 
 #Name of the outcome variable
 ########################
@@ -77,26 +77,6 @@ rmeta::forestplot(hier1$tabletext,
 dev.off()
 
 
-
-##############################
-#HIERARCHICAL MIXTURE MODEL
-##############################
-source('./models/hierarchical mixture model.R')
-hier.mix1<-hierarchical.mix.mod.func()
-hier.mix.st.eff<-hier.mix1$st.VE
-
-tiff('./results/hierarchical mixture.tif', width=8, height=7,res=200,units = 'in')
-rmeta::forestplot(hier1$tabletext, 
-                  mean=hier.mix1$summary_data$mean,lower=hier.mix1$summary_data$lower,
-                  upper=hier.mix1$summary_data$upper,
-                  new_page = F,
-                  #is.summary=c(rep(F, 16), T),
-                  is.summary=F,
-                  clip=c(-50,100), 
-                  xlog=F, 
-                  align='l',
-                  boxsize=0.5)
-dev.off()
 
 ###############################
 ##COMPARE HIERARCHICAL VS NON-HIERARCHICAL

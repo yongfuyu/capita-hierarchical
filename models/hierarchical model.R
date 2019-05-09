@@ -78,12 +78,7 @@ posterior_samples<-coda.samples(model_jags,
 
 #post1.summary<-summary(posterior_samples)
 post_means<-colMeans(posterior_samples[[1]])
-ci<-matrix(0, nrow=ncol(posterior_samples[[1]]), ncol=2)
-for(j in 1:ncol(posterior_samples[[1]])){
-  ci[j,]<-p.interval(posterior_samples[[1]][,j],
-                     HPD=TRUE,
-                     MM=FALSE) 
-}
+ci<-t(hdi(posterior_samples[[1]], credMass = 0.95))
 ci<-round(ci,1)
 post_means<-round(post_means,1)
 st.labs<-as.character(unique(d1$st))
@@ -92,7 +87,7 @@ st.labs<-as.character(unique(d1$st))
 yrange<-range(ci)
 
 overall.VE<-c(post_means[1], ci[1,])
-st.VE<- c(post_means[-1], ci[-1,])
+st.VE<- cbind(post_means[-1], ci[-1,])
 
 #install.packages('rmeta')
 library(rmeta)
