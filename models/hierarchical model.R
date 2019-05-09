@@ -78,7 +78,9 @@ posterior_samples<-coda.samples(model_jags,
                                 n.iter=100000)
 posterior_samples.all<-do.call(rbind,posterior_samples)
 #post1.summary<-summary(posterior_samples)
-post_means<-colMeans(posterior_samples.all)
+#post_means<-colMeans(posterior_samples.all)
+post_means<-apply(posterior_samples.all, 2, median)
+
 ci<-t(hdi(posterior_samples.all, credMass = 0.95))
 ci<-round(ci,1)
 post_means<-round(post_means,1)

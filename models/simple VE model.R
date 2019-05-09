@@ -63,13 +63,15 @@ params<-c('overall_vax_effect')
 ##############################################
 posterior_samples<-coda.samples(model_jags, 
                                 params, 
-                                n.iter=10000)
+                                n.iter=100000)
 posterior_samples.all<-do.call(rbind,posterior_samples)
 
 ############################################################################################################################
 #Posterior Inference
 ############################################################################################################################
-post_means<-colMeans(posterior_samples.all)
+#post_means<-colMeans(posterior_samples.all)
+post_means<-apply(posterior_samples.all, 2, median)
+
   ci<-hdi(posterior_samples.all,
               credMass = 0.95)
 

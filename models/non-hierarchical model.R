@@ -70,7 +70,8 @@ posterior_samples.all<-do.call(rbind,posterior_samples)
 ###################################################
 #POSTERIOR INFERENCE
 ###################################################
-post_means<-colMeans(posterior_samples.all)
+#post_means<-colMeans(posterior_samples.all)
+post_means<-apply(posterior_samples.all, 2, median)
 ci<-t(hdi(posterior_samples.all, credMass = 0.95))
 ci<-round(ci,1)
 post_means<-round(post_means,1)
