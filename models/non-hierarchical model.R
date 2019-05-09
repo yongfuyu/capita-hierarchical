@@ -42,13 +42,13 @@ model{
 ##############################################################
 #Model Fitting
 ##############################################################
-jags.inits1 <- function(){
-  list(".RNG.seed"=c(1), ".RNG.name"='base::Wichmann-Hill')
-}
+inits1=list(".RNG.seed"=c(123), ".RNG.name"='base::Wichmann-Hill')
+inits2=list(".RNG.seed"=c(456), ".RNG.name"='base::Wichmann-Hill')
+inits3=list(".RNG.seed"=c(789), ".RNG.name"='base::Wichmann-Hill')
 
 model_spec<-textConnection(model_string)
 model_jags<-jags.model(model_spec, 
-                       inits = jags.inits1,
+                       inits=list(inits1,inits2, inits3),
                        data=list('y' = y,
                                  'm' = m,
                                  'vax' = vax),

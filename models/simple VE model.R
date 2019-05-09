@@ -39,16 +39,18 @@ model{
 ##############################################################
 #Model Fitting
 ##############################################################
-jags.inits1 <- function(){
-   list(".RNG.seed"=c(1), ".RNG.name"='base::Wichmann-Hill')
-   }
+#jags.inits1 = parallel.seeds("base::BaseRNG", 3) # a list of lists
+
+inits1=list(".RNG.seed"=c(123), ".RNG.name"='base::Wichmann-Hill')
+inits2=list(".RNG.seed"=c(456), ".RNG.name"='base::Wichmann-Hill')
+inits3=list(".RNG.seed"=c(789), ".RNG.name"='base::Wichmann-Hill')
 
 ##############################################
 #Model Organization
 ##############################################
 model_spec<-textConnection(model_string)
 model_jags<-jags.model(model_spec, 
-                       inits = jags.inits1,
+                       inits=list(inits1,inits2, inits3),
                        data=list('y' = y,
                                  'm' = m,
                                  'vax' = vax),
@@ -61,7 +63,7 @@ params<-c('overall_vax_effect')
 ##############################################
 posterior_samples<-coda.samples(model_jags, 
                                 params, 
-                                n.iter=100000)
+                                n.iter=10000)
 posterior_samples.all<-do.call(rbind,posterior_samples)
 
 ############################################################################################################################
