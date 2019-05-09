@@ -74,11 +74,11 @@ params<-c('overall_vax_effect',
 ##############################################
 posterior_samples<-coda.samples(model_jags, 
                                 params, 
-                                n.iter=20000)
-
+                                n.iter=100000)
+posterior_samples.all<-do.call(rbind,posterior_samples)
 #post1.summary<-summary(posterior_samples)
-post_means<-colMeans(posterior_samples[[1]])
-ci<-t(hdi(posterior_samples[[1]], credMass = 0.95))
+post_means<-colMeans(posterior_samples.all)
+ci<-t(hdi(posterior_samples.all, credMass = 0.95))
 ci<-round(ci,1)
 post_means<-round(post_means,1)
 st.labs<-as.character(unique(d1$st))
