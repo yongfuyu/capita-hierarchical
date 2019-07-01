@@ -104,3 +104,46 @@ text(-145,1, 'Hierarchical', pos=2)
 abline(v=0) 
 dev.off()
 
+
+
+#######################################################################################################################
+#SENSITIVITY ANALYSES: ALTERNATIVE PRIOR STRUCTURES
+#######################################################################################################################
+#####################################################################################
+#Hierarchical Model with inverse gamma priors on the shrinkage parameters
+#####################################################################################
+source('./models/hierarchical model-IG.R')
+hier2<-hierarchical.ig.mod.func()
+hier.st.eff<-hier2$st.VE
+
+tiff('./results/hierarchical-ig.tif', width=8, height=7,res=200,units = 'in')
+rmeta::forestplot(hier2$tabletext, 
+                  mean=hier2$summary_data$mean,lower=hier2$summary_data$lower,
+                  upper=hier2$summary_data$upper,
+                  new_page = F,
+                  #is.summary=c(rep(F, 16), T),
+                  is.summary=F,
+                  clip=c(-50,100), 
+                  xlog=F, 
+                  align='l',
+                  boxsize=0.5)
+dev.off()
+
+###########################################################################################
+###DIRICHLET PRIOR, NON_HIERARCHICAL 
+source('./models/non-hierarchical model-Dirichlet.R')
+nonhier2<-non_hierarchical_dir_func()
+nonhier.st.eff2<-nonhier2$st.VE
+tiff('./results/non_hierarchical-dirichlet.tif', width=8, height=7,res=200,units = 'in')
+rmeta::forestplot(nonhier1$tabletext, 
+                  mean=nonhier2$summary_data$mean,
+                  lower=signif(nonhier2$summary_data$lower,digits=2),
+                  upper=signif(nonhier2$summary_data$upper, digits=2),
+                  new_page = T,
+                  clip=c(-50,100),
+                  #is.summary=c(rep(F, 16), T),
+                  is.summary=F,
+                  align='l',
+                  xlog=F, 
+                  boxsize=0.5)
+dev.off()
