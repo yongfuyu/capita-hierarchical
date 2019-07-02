@@ -45,9 +45,9 @@ nonhier1<-non_hierarchical_func()
 nonhier.st.eff<-nonhier1$st.VE
 tiff('./results/non_hierarchical.tif', width=8, height=7,res=200,units = 'in')
 rmeta::forestplot(nonhier1$tabletext, 
-                  mean=nonhier1$summary_data$mean,
-                  lower=signif(nonhier1$summary_data$lower,digits=2),
-                  upper=signif(nonhier1$summary_data$upper, digits=2),
+                  mean=as.numeric(nonhier1$summary_data$mean),
+                  lower=as.numeric(nonhier1$summary_data$lower),
+                  upper=as.numeric(nonhier1$summary_data$upper),
                   new_page = T,
                   clip=c(-50,100),
                   #is.summary=c(rep(F, 16), T),
@@ -65,9 +65,10 @@ hier.st.eff<-hier1$st.VE
 
 tiff('./results/hierarchical.tif', width=8, height=7,res=200,units = 'in')
 rmeta::forestplot(hier1$tabletext, 
-                         mean=hier1$summary_data$mean,lower=hier1$summary_data$lower,
-                         upper=hier1$summary_data$upper,
-                         new_page = F,
+                         mean=as.numeric(hier1$summary_data$mean),
+                          lower=as.numeric(hier1$summary_data$lower),
+                         upper=as.numeric(hier1$summary_data$upper),
+                         new_page = F, 
                          #is.summary=c(rep(F, 16), T),
                          is.summary=F,
                          clip=c(-50,100), 
@@ -118,8 +119,9 @@ hier.st.eff<-hier2$st.VE
 
 tiff('./results/hierarchical-ig.tif', width=8, height=7,res=200,units = 'in')
 rmeta::forestplot(hier2$tabletext, 
-                  mean=hier2$summary_data$mean,lower=hier2$summary_data$lower,
-                  upper=hier2$summary_data$upper,
+                  mean=as.numeric(hier2$summary_data$mean),
+                  lower=as.numeric(hier2$summary_data$lower),
+                  upper=as.numeric(hier2$summary_data$upper),
                   new_page = F,
                   #is.summary=c(rep(F, 16), T),
                   is.summary=F,
@@ -136,9 +138,9 @@ nonhier2<-non_hierarchical_dir_func()
 nonhier.st.eff2<-nonhier2$st.VE
 tiff('./results/non_hierarchical-dirichlet.tif', width=8, height=7,res=200,units = 'in')
 rmeta::forestplot(nonhier2$tabletext, 
-                  mean=nonhier2$summary_data$mean,
-                  lower=signif(nonhier2$summary_data$lower,digits=2),
-                  upper=signif(nonhier2$summary_data$upper, digits=2),
+                  mean=as.numeric(nonhier2$summary_data$mean),
+                  lower=as.numeric(nonhier2$summary_data$lower),
+                  upper=as.numeric(nonhier2$summary_data$upper),
                   new_page = T,
                   clip=c(-50,100),
                   #is.summary=c(rep(F, 16), T),

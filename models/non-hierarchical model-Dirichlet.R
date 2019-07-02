@@ -37,7 +37,7 @@ model_jags<-jags.model(model_spec,
                        inits=list(inits1,inits2, inits3),
                        data=list('y' = y,
                                  'm' = m,
-                                 'epsilon' = rep(0.1, times=14)),
+                                 'epsilon' = rep(0.02, times=14)),
                        n.adapt=10000, 
                        n.chains=3)
 
@@ -58,9 +58,12 @@ posterior_samples.all<-do.call(rbind,posterior_samples)
 ###################################################
 #post_means<-colMeans(posterior_samples.all)
 post_means<-apply(posterior_samples.all, 2, median)
+sample.labs<-names(post_means)
 ci<-t(hdi(posterior_samples.all, credMass = 0.95))
-ci<-round(ci,1)
-post_means<-round(post_means,1)
+ci<-matrix(sprintf("%.1f",round(ci,1)), ncol=2)
+row.names(ci)<-sample.labs
+post_means<-sprintf("%.1f",round(post_means,1))
+names(post_means)<-sample.labs
 
 st.labs<-as.character(unique(d1$st))
 
