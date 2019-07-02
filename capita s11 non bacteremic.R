@@ -94,7 +94,7 @@ dev.off()
 tiff('./results/hierarchical vs non hierarchical shrinkage.tif', width=8, height=6,res=200,units = 'in')
 plot.nonhier.st.eff <- nonhier.st.eff[,1]
 plot.nonhier.st.eff[plot.nonhier.st.eff< -10000]<-NA
-plot( plot.nonhier.st.eff,rep(2,13), ylim=c(1,2.1),yaxt='n',ylab='',xlab='Efficacy', xlim=c(-200,100),col='white', bty='n')
+plot( plot.nonhier.st.eff,rep(2,13), ylim=c(1,2.1),yaxt='n',ylab='',xlab='Vaccine Efficacy', xlim=c(-200,100),col='white', bty='n')
 symbols(plot.nonhier.st.eff,rep(2,13),sqrt(st.n/pi), cex=0.2, inches=0.1, add=T)
 #points(hier.st.eff[,2],rep(1,13))
 symbols(hier.st.eff[,1],rep(1,13),sqrt(st.n/pi), cex=0.2, inches=0.1, add=T)
@@ -135,7 +135,7 @@ source('./models/non-hierarchical model-Dirichlet.R')
 nonhier2<-non_hierarchical_dir_func()
 nonhier.st.eff2<-nonhier2$st.VE
 tiff('./results/non_hierarchical-dirichlet.tif', width=8, height=7,res=200,units = 'in')
-rmeta::forestplot(nonhier1$tabletext, 
+rmeta::forestplot(nonhier2$tabletext, 
                   mean=nonhier2$summary_data$mean,
                   lower=signif(nonhier2$summary_data$lower,digits=2),
                   upper=signif(nonhier2$summary_data$upper, digits=2),
@@ -147,3 +147,4 @@ rmeta::forestplot(nonhier1$tabletext,
                   xlog=F, 
                   boxsize=0.5)
 dev.off()
+
