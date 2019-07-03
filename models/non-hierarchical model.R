@@ -106,8 +106,9 @@ tabletext<-cbind(
   c("", "Serotype", st.labs, NA, "All"),
   c("Vaccine", "(N=42240)", d1[,outcome.var][d1$vax==1], NA, sum(d1[,outcome.var][d1$vax==1])),
   c("Control", "(N=42256)",  d1[,outcome.var][d1$vax==0], NA, sum(d1[,outcome.var][d1$vax==0])),
-  c("", "VE", paste0(post_means[2:14],'% (', ci[2:14,1],'%, ',ci[2:14,2] ,'%' ,')'), 
-    NA, paste0(post_means[1],'% (', ci[1,1],'%, ', ci[1,2],'%',')' ) )
+  c("", "VE", paste0(post_means[2:14],'%'),NA,paste0(post_means[1],'%')),
+  c("", "95% CrI",paste0('(', ci[2:14,1],'%, ',ci[2:14,2] ,'%',')') , 
+    NA, paste0('(', ci[1,1],'%',', ' ,  ci[1,2],'%',')' ) )  
 )
     
   
