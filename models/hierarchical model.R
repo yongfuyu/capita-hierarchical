@@ -82,9 +82,9 @@ posterior_samples.all<-do.call(rbind,posterior_samples)
 post_means<-apply(posterior_samples.all, 2, median)
 sample.labs<-names(post_means)
 ci<-t(hdi(posterior_samples.all, credMass = 0.95))
-ci<-matrix(sprintf("%.1f",round(ci,1)), ncol=2)
+ci<-matrix(signif(round(ci),digits=2), ncol=2)
 row.names(ci)<-sample.labs
-post_means<-sprintf("%.1f",round(post_means,1))
+post_means<-signif(round(post_means),digits=2)
 names(post_means)<-sample.labs
 
 st.labs<-as.character(unique(d1$st))

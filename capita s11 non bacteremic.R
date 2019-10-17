@@ -56,6 +56,7 @@ rmeta::forestplot(nonhier1$tabletext,
                   xlog=F, 
                   boxsize=0.5)
 dev.off()
+
 #####################################################################################
 #Hierarchical Model
 #####################################################################################
@@ -95,21 +96,21 @@ dev.off()
 tiff('./results/hierarchical vs non hierarchical shrinkage.tif', width=8, height=6,res=200,units = 'in')
 plot.nonhier.st.eff <- nonhier.st.eff
 plot.nonhier.st.eff[plot.nonhier.st.eff< -10000]<-NA
-plot( plot.nonhier.st.eff,rep(2,13), ylim=c(1,2.1),yaxt='n',ylab='',xlab='Vaccine Efficacy', xlim=c(-200,100),col='white', bty='n')
-symbols(plot.nonhier.st.eff,rep(2,13),sqrt(st.n/pi), cex=0.2, inches=0.1, add=T)
+plot( plot.nonhier.st.eff,rep(1.5,13), ylim=c(1,2.1),yaxt='n',ylab='',xlab='Vaccine Efficacy', xlim=c(-200,100),col='white', bty='n')
+symbols(plot.nonhier.st.eff,rep(1.5,13),sqrt(st.n/pi), cex=0.2, inches=0.1, add=T)
 #points(hier.st.eff[,2],rep(1,13))
 symbols(hier.st.eff,rep(1,13),sqrt(st.n/pi), cex=0.2, inches=0.1, add=T)
-arrows(x0=plot.nonhier.st.eff , x1=hier.st.eff, y0=2, y1=1, length=0, lty=2, col='gray')
-text(-145,2, 'Non-hierarchical', pos=2)
+arrows(x0=plot.nonhier.st.eff , x1=hier.st.eff, y0=1.5, y1=1, length=0, lty=2, col='gray')
+text(-145,1.5, 'Non-hierarchical', pos=2, cex=1.2, xpd=NA)
 jitter.plot.nonhier.st.eff<-plot.nonhier.st.eff
-jitter.y<-rep(2.01, length(jitter.plot.nonhier.st.eff))
-jitter.y[unique(d1$st)=='23F']<-2.04
-jitter.y[unique(d1$st)=='19F']<-1.98
-jitter.y[unique(d1$st)=='5']<-2.04
-jitter.y[unique(d1$st)=='19A']<-2.06
-jitter.y[unique(d1$st)=='3']<-2.03
-text(jitter.plot.nonhier.st.eff,jitter.y,  unique(d1$st), pos=3, xpd=NA, cex=0.75)
-text(-145,1, 'Hierarchical', pos=2)
+jitter.y<-rep(1.51, length(jitter.plot.nonhier.st.eff))
+jitter.y[unique(d1$st)=='23F']<-1.55
+jitter.y[unique(d1$st)=='19F']<-1.48
+jitter.y[unique(d1$st)=='5']<-1.55
+jitter.y[unique(d1$st)=='19A']<-1.48
+jitter.y[unique(d1$st)=='3']<-1.54
+text(jitter.plot.nonhier.st.eff,jitter.y,  unique(d1$st), pos=3, xpd=NA, cex=0.9)
+text(-145,1, 'Hierarchical', pos=2, cex=1.2, xpd=NA)
 abline(v=0) 
 dev.off()
 
